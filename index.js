@@ -80,7 +80,18 @@ function getName(id, name, email) {
  *         and returns a string like `Hello, my name is {name}`.
  *         where `{name}` is the name passed into `makeSmartPerson`.
  */
-function makeSmartPerson() {}
+function makeSmartPerson(name) {
+    let person = {
+        name: name,
+        sum: function(abc, xyz) {
+            return abc + xyz;
+        },
+        speak: function() {
+            return "Hello, my name is " + this.name;
+        }
+    };
+    return person;
+}
 
 /*
 // ⭐️ Example Test Data ⭐️
