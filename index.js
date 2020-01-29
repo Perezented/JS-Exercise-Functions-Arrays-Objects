@@ -164,6 +164,10 @@ function getCarInfoByIndex(inventory) {
  */
 function getLastCarInfo(exports) {
     /* code here */
+    // return `This is a ${exports[exports.length - 1].car_make} ${
+    //     exports[exports.length - 1].car_model
+    // }`;
+
     return `This is a ${exports[exports.length - 1].car_make} ${
         exports[exports.length - 1].car_model
     }`;
@@ -227,7 +231,7 @@ function sortCarInventory(inventory) {
 function getModelYears(exports) {
     let modelYears = [];
     for (let i = 0; i < exports.length; i++) {
-        modelYears.push(exports.car_year);
+        modelYears.push(exports[i].car_year);
     }
     return modelYears;
 }
@@ -244,14 +248,15 @@ function getModelYears(exports) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
  */
-function getOlderCars(/* code here */ inventory, maxyear) {
+function getOlderCars(/* code here */ array, maxyear) {
     /* code here */
-    // let olderCars = [];
-    // for (let i = 0; i < inventory.length; i++) {
-    //     if (inventory[i].car_year <= maxyear) {
-    //         return olderCars;
-    //     }
-    // }
+    let old = [];
+    for (let i = 0; i < array.length; i++) {
+        if (array[i].car_year <= maxyear) {
+            old.push(array[i]);
+        }
+    }
+    return old;
 }
 
 // let olderCars = [];
@@ -275,13 +280,16 @@ function getGermanCars(/* code here */ arrayName) {
     /* code here */
     const germanCars = [];
     for (i = 0; i < arrayName.length; i++) {
-        if (arrayName[i].car_make === "Audi") germanCars.push(arrayName[i]);
-        if (arrayName[i].car_make === "Mercedes-Benz")
+        if (
+            arrayName[i].car_make === `Audi` ||
+            arrayName[i].car_make === `Mercedes-Benz` ||
+            arrayName[i].car_make === `Volkswagen` ||
+            arrayName[i].car_make === `BMW`
+        ) {
             germanCars.push(arrayName[i]);
-        if (arrayName[i].car_make === "Volkswagon")
-            germanCars.push(arrayName[i]);
-        if (arrayName[i].car_make === "BMW") germanCars.push(arrayName[i]);
+        }
     }
+    return germanCars;
 }
 
 /**
@@ -325,10 +333,17 @@ const argTimesTwo = num => {
  *         (1) causes the odometer in the object to be increased by the distance,
  *         (2) returns the updated value of the `odometer`.
  */
-function carMaker(/* code here */) {
-    /* code here */
+function carMaker(num) {
+    const obj = {
+        odometer: num,
+        drive(num) {
+            return (this.odometer += num);
+        }
+    };
+    return obj;
 }
-
+console.log(carMaker(20));
+console.log(carMaker(20).drive(20));
 /// ////// END OF CHALLENGE /////////
 /// ////// END OF CHALLENGE /////////
 /// ////// END OF CHALLENGE /////////
